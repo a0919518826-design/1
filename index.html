@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暖霧｜命定眉型測驗</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans TC",sans-serif;
+  background:#fff4f1;
+  color:#5c4038;
+}
+.box{
+  max-width:650px;
+  margin:30px auto;
+  padding:24px;
+  background:#fffaf8;
+  border-radius:24px;
+  box-shadow:0 8px 25px rgba(150,90,80,.18);
+}
+h1{text-align:center;color:#b86f62;}
+p{text-align:center;}
+.question{
+  background:#fff;
+  padding:18px;
+  margin:16px 0;
+  border-radius:18px;
+  border:1px solid #f0d2cc;
+}
+label{
+  display:block;
+  margin:10px 0;
+  padding:12px;
+  border-radius:14px;
+  background:#fff6f3;
+  cursor:pointer;
+}
+button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:999px;
+  background:#c98276;
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.result{
+  display:none;
+  margin-top:22px;
+  padding:22px;
+  background:#fff0eb;
+  border-radius:20px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <h1>🌸 暖霧｜命定眉型測驗</h1>
+  <p>回答 5 題，測出最適合你的霧眉風格</p>
+
+  <div class="question">
+    <b>1. 你喜歡哪種妝感？</b>
+    <label><input type="radio" name="q1" value="natural"> 自然乾淨</label>
+    <label><input type="radio" name="q1" value="korean"> 韓系溫柔</label>
+    <label><input type="radio" name="q1" value="elegant"> 精緻高級</label>
+    <label><input type="radio" name="q1" value="sweet"> 甜美減齡</label>
+  </div>
+
+  <div class="question">
+    <b>2. 你的眉毛困擾是？</b>
+    <label><input type="radio" name="q2" value="natural"> 眉毛稀疏</label>
+    <label><input type="radio" name="q2" value="korean"> 眉型不明顯</label>
+    <label><input type="radio" name="q2" value="elegant"> 左右不對稱</label>
+    <label><input type="radio" name="q2" value="sweet"> 每天畫眉很麻煩</label>
+  </div>
+
+  <div class="question">
+    <b>3. 你希望給人的感覺？</b>
+    <label><input type="radio" name="q3" value="natural"> 親切自然</label>
+    <label><input type="radio" name="q3" value="korean"> 溫柔氣質</label>
+    <label><input type="radio" name="q3" value="elegant"> 自信高級</label>
+    <label><input type="radio" name="q3" value="sweet"> 年輕有活力</label>
+  </div>
+
+  <div class="question">
+    <b>4. 你畫眉毛通常多久？</b>
+    <label><input type="radio" name="q4" value="natural"> 幾乎不用畫</label>
+    <label><input type="radio" name="q4" value="korean"> 5 分鐘內</label>
+    <label><input type="radio" name="q4" value="elegant"> 10 分鐘以上</label>
+    <label><input type="radio" name="q4" value="sweet"> 每天都畫不好</label>
+  </div>
+
+  <div class="question">
+    <b>5. 你最想改善什麼？</b>
+    <label><input type="radio" name="q5" value="natural"> 素顏也有精神</label>
+    <label><input type="radio" name="q5" value="korean"> 整體更溫柔</label>
+    <label><input type="radio" name="q5" value="elegant"> 五官更立體</label>
+    <label><input type="radio" name="q5" value="sweet"> 省下化妝時間</label>
+  </div>
+
+  <button onclick="showResult()">查看我的命定眉型</button>
+
+  <div class="result" id="result">
+    <h2 id="title"></h2>
+    <p id="text"></p>
+    <p>🎁 截圖結果私訊暖霧，可領取專屬諮詢優惠</p>
+  </div>
+</div>
+
+<script>
+function showResult(){
+  let questions = ["q1","q2","q3","q4","q5"];
+  let score = {natural:0,korean:0,elegant:0,sweet:0};
+
+  for(let q of questions){
+    let ans = document.querySelector('input[name="'+q+'"]:checked');
+    if(!ans){
+      alert("請完成所有題目喔！");
+      return;
+    }
+    score[ans.value]++;
+  }
+
+  let type = Object.keys(score).reduce((a,b)=>score[a]>=score[b]?a:b);
+
+  let data = {
+    natural:{
+      title:"🌿 自然柔霧眉",
+      text:"你適合自然、不厚重的眉型，素顏也能看起來乾淨有精神。"
+    },
+    korean:{
+      title:"🌸 韓系氣質眉",
+      text:"你適合柔和、溫柔感的眉型，能提升整體氣質。"
+    },
+    elegant:{
+      title:"👑 高級立體眉",
+      text:"你適合輪廓較明顯的眉型，讓五官更精緻有自信。"
+    },
+    sweet:{
+      title:"💖 元氣甜美眉",
+      text:"你適合親和、減齡感眉型，看起來更有活力。"
+    }
+  };
+
+  document.getElementById("title").innerText = data[type].title;
+  document.getElementById("text").innerText = data[type].text;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
